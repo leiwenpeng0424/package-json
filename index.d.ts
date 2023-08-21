@@ -57,7 +57,37 @@ export declare interface IExportObject {
   [K: string]: IExportObject | string;
 }
 
-export declare interface IPackageJson {
+export declare interface IDistObject {
+  shasum?: string;
+  tarball?: string;
+}
+
+export declare interface IPublishConfig {
+  access?: string;
+  tag?: string;
+}
+
+export declare interface IRepository {
+  type: string;
+  url: string;
+  directory: string;
+}
+
+export declare interface IScripts {
+  [k: string]: string;
+}
+
+export declare interface IExtraConfig {
+  jspm?: Record<string, any>;
+  eslintConfig?: Record<string, any>; //https://json.schemastore.org/eslintrc.json
+  prettier?: Record<string, any>; // "https://json.schemastore.org/prettierrc.json"
+  stylelint?: Record<string, any>; // $ref: "https://json.schemastore.org/stylelintrc.json";
+  ava?: Record<string, any>; // $ref: "https://json.schemastore.org/ava.json";
+  release?: Record<string, any>; // $ref: "https://json.schemastore.org/semantic-release.json";
+  jscpd?: Record<string, any>; // $ref: "https://json.schemastore.org/jscpd.json";
+}
+
+export declare interface IPackageJson extends IExtraConfig {
   /**
    * If you plan to publish your package,
    * the most important things in your package.json are the name and version fields as they will be required. The name and version together form an identifier that is assumed to be completely unique. Changes to the package should come along with changes to the version.
@@ -196,6 +226,8 @@ export declare interface IPackageJson {
    * If this is spelled "bundledDependencies", then that is also honored.
    *
    * Alternatively, "bundleDependencies" can be defined as a boolean value. A value of true will bundle all dependencies, a value of false will bundle none.
+   *
+   * @description
    */
   bundleDependencies?: string[];
   /**
@@ -435,6 +467,10 @@ export declare interface IPackageJson {
    */
   engines?: IEngine;
   /**
+   *
+   */
+  engineStrict?: boolean;
+  /**
    * The optional files field is an array of file patterns that describes the entries to be included when your package is installed as a dependency. File patterns follow a similar syntax to .gitignore, but reversed: including a file, directory, or glob pattern (*, **\/*, and such) will make it so that file is included in the tarball when it's packed. Omitting the field will make it default to ["*"], which means it will include all files.
    * Some special files and directories are also included or excluded regardless of whether they exist in the files array (see below).
    * You can also provide a .npmignore file in the root of your package or in subdirectories, which will keep files from being included. At the root of your package it will not override the "files" field, but in subdirectories it will. The .npmignore file works just like a .gitignore. If there is a .gitignore file, and .npmignore is missing, .gitignore's contents will be used instead.
@@ -592,6 +628,10 @@ export declare interface IPackageJson {
    * Consider also setting "private": true to prevent accidental publication.
    */
   license: string;
+  /**
+   * @deprecated
+   */
+  licenses?: string[];
   /**
    * The main field is a module ID that is the primary entry point to your program. That is, if your package is named foo, and a user installs it, and then does require("foo"), then your main module's exports object will be returned.
    * This should be a module relative to the root of your package folder.
@@ -926,6 +966,7 @@ export declare interface IPackageJson {
    */
   workspaces?: string[];
   /**
+   * The \"exports\" field is used to restrict external access to non-exported module files, also enables a module to import itself using \"name\".
    * Note: every path should be relative to the package root. Meaning each path must start with ./
    *
    * example:
@@ -952,21 +993,39 @@ export declare interface IPackageJson {
    * ```
    */
   exports?: IExportObject;
-}
-
-export declare interface IPublishConfig {
-  access?: string;
-  tag?: string;
-}
-
-export declare interface IRepository {
-  type: string;
-  url: string;
-  directory: string;
-}
-
-export declare interface IScripts {
-  [k: string]: string;
+  /**
+   *
+   */
+  readme?: string;
+  /**
+   *
+   */
+  dist?: IDistObject;
+  /**
+   * DEPRECATED: This option used to trigger an npm warning, but it will no longer warn. It is purely there for informational purposes. It is now recommended that you install any binaries as local devDependencies wherever possible.
+   * @deprecated
+   */
+  preferGlobal?: boolean;
+  /**
+   * Defines which package manager is expected to be used when working on the current project. This field is currently experimental and needs to be opted-in; see https://nodejs.org/api/corepack.html
+   */
+  packageManager?: string;
+  /**
+   * Resolutions is used to support selective version resolutions using yarn, which lets you define custom package versions or ranges inside your dependencies. For npm, use overrides instead. See: https://classic.yarnpkg.com/en/docs/selective-version-resolutions
+   */
+  resolutions?: Record<string, any>;
+  /**
+   * The \"typesVersions\" field is used since TypeScript 3.1 to support features that were only made available in newer TypeScript versions.
+   */
+  typesVersions?: Record<string, any>;
+  /**
+   * Note that the \"typings\" field is synonymous with \"types\", and could be used as well.
+   */
+  typings?: string;
+  /**
+   * A list of people who maintains this package.
+   */
+  maintainers?: IAuthor[];
 }
 
 export {};
