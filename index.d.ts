@@ -53,6 +53,10 @@ export declare interface IOverrides {
   [k: string]: string | IOverrides;
 }
 
+export declare interface IExportObject {
+  [K: string]: IExportObject | string;
+}
+
 export declare interface IPackageJson {
   /**
    * If you plan to publish your package,
@@ -921,6 +925,33 @@ export declare interface IPackageJson {
    * See `workspaces` for more examples.
    */
   workspaces?: string[];
+  /**
+   * Note: every path should be relative to the package root. Meaning each path must start with ./
+   *
+   * example:
+   *
+   * ```json
+   *
+   * {
+   *   "exports": {
+   *     ".": {
+   *       "browser": {
+   *         "default": "./lib/whole-lib.browser.js"
+   *       }
+   *     },
+   *     "module-a": {
+   *       "import": "./lib/public-module-a.mjs",
+   *       "require": "./lib/public-module-a.cjs"
+   *     },
+   *     "module-b": {
+   *       "import": "./lib/public-module-b.mjs",
+   *       "require": "./lib/public-module-b.cjs"
+   *     }
+   *   }
+   * }
+   * ```
+   */
+  exports?: IExportObject;
 }
 
 export declare interface IPublishConfig {
