@@ -1,7 +1,7 @@
 export declare interface IAuthor {
-  name: string;
-  email: string;
-  url: string;
+  name?: string;
+  email?: string;
+  url?: string;
 }
 
 export declare interface IBinObject {
@@ -9,8 +9,8 @@ export declare interface IBinObject {
 }
 
 export declare interface IBugs {
-  url: string;
-  email: string;
+  url?: string;
+  email?: string;
 }
 
 export declare interface IConfigObject {
@@ -33,11 +33,11 @@ export declare interface IDirectories {
    *
    * Because of the way the bin directive works, specifying both a bin path and setting directories.bin is an error. If you want to specify individual files, use bin, and for all the files in an existing bin directory, use directories.bin.
    */
-  bin: string;
+  bin?: string;
   /**
    * A folder that is full of man pages. Sugar to generate a "man" array by walking the folder.
    */
-  man: string;
+  man?: string;
 }
 
 export declare interface IEngine {
@@ -45,8 +45,8 @@ export declare interface IEngine {
 }
 
 export declare interface IFounding {
-  type: string;
-  url: string;
+  type?: string;
+  url?: string;
 }
 
 export declare interface IOverrides {
@@ -68,9 +68,9 @@ export declare interface IPublishConfig {
 }
 
 export declare interface IRepository {
-  type: string;
-  url: string;
-  directory: string;
+  type?: string;
+  url?: string;
+  directory?: string;
 }
 
 export declare interface IScripts {
