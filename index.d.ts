@@ -74,7 +74,60 @@ export declare interface IRepository {
 }
 
 export declare interface IScripts {
-  [k: string]: string;
+  [k: string]: string | undefined;
+  /**
+   * Run code quality tools, e.g. ESLint, TSLint, etc.
+   **/
+  lint?: string;
+  /**
+   * Run BEFORE the package is published (Also run on local npm install without any arguments).
+   **/
+  prepublish?: string;
+  /**
+   * Run BEFORE the package is prepared and packed, ONLY on npm publish.
+   **/
+  prepublishOnly?: string;
+  /**
+   * run BEFORE a tarball is packed (on npm pack, npm publish, and when installing git dependencies).
+   **/
+  prepack?: string;
+  /**
+   * Run AFTER the tarball has been generated and moved to its final destination.
+   **/
+  postpack?: string;
+  /**
+   * Publishes a package to the registry so that it can be installed by name. See https://docs.npmjs.com/cli/v8/commands/npm-publish
+   **/
+  publish?: string;
+  postpublish?: string; //   "$ref": "#/definitions/scriptsPublishAfter"
+  /**
+   * "Run BEFORE the package is installed."
+   **/
+  preinstall?: string;
+  install?: string;
+  postinstall?: string;
+  preuninstall?: string;
+  uninstall?: string;
+  postuninstall?: string;
+  preversion?: string;
+  version?: string;
+  postversion?: string;
+  pretest?: string;
+  test?: string;
+  posttest?: string;
+  prestop?: string;
+  stop?: string;
+  poststop?: string;
+  prestart?: string;
+  start?: string;
+  poststart?: string;
+  prerestart?: string;
+  restart?: string;
+  postrestart?: string;
+  /**
+   * Start dev server to serve application files
+   **/
+  serve?: string;
 }
 
 export declare interface IExtraConfig {
